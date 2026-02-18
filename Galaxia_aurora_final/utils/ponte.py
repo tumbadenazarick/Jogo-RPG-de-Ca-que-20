@@ -2,21 +2,36 @@ import os
 
 class PonteNexus:
     """
-    Sistema de ponte para conectar o código original ao oposto
-    e resolver conflitos de nomes usando a máscara 'OP_'.
+    Sistema de Conexão 'Ponte' - Lord Eclipse.
+    Conecta módulos independentes sem unificar o código físico.
     """
     def __init__(self):
-        self.mapa_de_identidade = {}
+        self.conexoes = {}
+        self.mascaras = {}
 
-    def verificar_sobreposicao(self, nome_original, novo_codigo):
-        if nome_original in novo_codigo:
-            print(f"⚠️ Detectado nome idêntico: {nome_original}")
-            print("🛠️ Aplicando máscara 'OP_' para evitar quebra de sistema...")
-            return novo_codigo.replace(nome_original, f"OP_{nome_original}")
-        return novo_codigo
+    def registrar_modulo(self, nome, modulo_obj):
+        """Registra um sistema na ponte para que outros possam consultá-lo."""
+        self.conexoes[nome] = modulo_obj
+        print(f"🔗 [PONTE]: Módulo '{nome}' conectado à rede Nexus.")
 
-    def criar_ponte(self, original, oposto):
-        self.mapa_de_identidade[original] = oposto
-        print(f"🔗 Ponte estabelecida: {original} <-> {oposto}")
+    def executar_comando_cruzado(self, modulo_origem, modulo_destino, comando, *args):
+        """
+        Permite que um módulo execute funções em outro sem dependência direta.
+        Ex: Economia pedindo dados para a Base Militar.
+        """
+        if modulo_destino in self.conexoes:
+            target = self.conexoes[modulo_destino]
+            if hasattr(target, comando):
+                func = getattr(target, comando)
+                return func(*args)
+        print(f"⚠️ [AVISO]: Comando '{comando}' não encontrado no destino '{modulo_destino}'.")
+        return None
 
-ponte_global = PonteNexus()
+    def aplicar_mascara_conflito(self, nome_identico, contexto):
+        """Aplica a máscara OP_ se houver sobreposição de nomes."""
+        novo_nome = f"OP_{contexto.upper()}_{nome_identico}"
+        self.mascaras[nome_identico] = novo_nome
+        return novo_nome
+
+# Instância Global da Ponte
+ponte_nexus = PonteNexus()
