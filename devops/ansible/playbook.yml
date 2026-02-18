@@ -1,0 +1,6 @@
+- name: Deploy Galaxia Aurora
+  hosts: localhost
+  tasks:
+    - name: Ensure requirements are met
+      pip:
+        requirements: /app/Galaxia_aurora_final/requirements.txt

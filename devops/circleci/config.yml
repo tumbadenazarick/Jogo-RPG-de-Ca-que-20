@@ -1,0 +1,9 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: python:3.10
+    steps:
+      - checkout
+      - run: pip install -r Galaxia_aurora_final/requirements.txt
+      - run: pytest
