@@ -1,0 +1,7 @@
+reportlab>=4.0.0
+pygments>=2.15.0
+colorama>=0.4.6
+pytest>=7.4.0
+serde
+serde_json
+rand
